@@ -15,9 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.Application"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.Persistence", "PaymentService.Persistence\PaymentService.Persistence.csproj", "{7B976331-3F27-440A-8D40-E084B5BCFAD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService.Domain", "PaymentService.Domain\PaymentService.Domain.csproj", "{927B8184-BBB2-45FC-AF23-83B2FED8DB25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.Domain", "PaymentService.Domain\PaymentService.Domain.csproj", "{927B8184-BBB2-45FC-AF23-83B2FED8DB25}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService.EndPoint", "PaymentService.EndPoint\PaymentService.EndPoint.csproj", "{8470FA16-B6D7-43C7-9767-81DC2EA69636}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.EndPoint", "PaymentService.EndPoint\PaymentService.EndPoint.csproj", "{8470FA16-B6D7-43C7-9767-81DC2EA69636}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService.Infrastructure", "PaymentService.Infrastructure\PaymentService.Infrastructure.csproj", "{BD0B5F56-8F00-4AF5-AF8B-FD2A176E6339}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{8470FA16-B6D7-43C7-9767-81DC2EA69636}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8470FA16-B6D7-43C7-9767-81DC2EA69636}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8470FA16-B6D7-43C7-9767-81DC2EA69636}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD0B5F56-8F00-4AF5-AF8B-FD2A176E6339}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD0B5F56-8F00-4AF5-AF8B-FD2A176E6339}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD0B5F56-8F00-4AF5-AF8B-FD2A176E6339}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD0B5F56-8F00-4AF5-AF8B-FD2A176E6339}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{7B976331-3F27-440A-8D40-E084B5BCFAD7} = {99C72E17-C138-4ACF-B309-848E40230E1E}
 		{927B8184-BBB2-45FC-AF23-83B2FED8DB25} = {91EF590F-24CE-43F7-BA9B-2DCE4B9B9D94}
 		{8470FA16-B6D7-43C7-9767-81DC2EA69636} = {91A644C9-1087-4AE0-A315-5A69998BAE32}
+		{BD0B5F56-8F00-4AF5-AF8B-FD2A176E6339} = {99C72E17-C138-4ACF-B309-848E40230E1E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5FA3B36F-3C8C-4B46-925A-428E6656D485}
