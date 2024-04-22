@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using PaymentService.Application.Services;
 using PaymentService.EndPoint.Models.Dtos;
+using PaymentService.Infrastructure.MessagingBus.Messages;
 using RestSharp;
+using SayyehBanTools.MessagingBus.RabbitMQ.SendMessage;
 using System.Data;
 using ZarinPal.Class;
 
@@ -19,10 +21,11 @@ namespace PaymentService.EndPoint.Controllers
         private readonly Transactions _transactions;
         private readonly IPaymentService paymentService;
         private readonly IConfiguration configuration;
+        private readonly ISendMessages sendMessages;
         private readonly string merchendId;
-
+        public static string QueueName_PaymentDone = "PaymentDone";
         public PayController(IPaymentService paymentService
-            , IConfiguration configuration)
+            , IConfiguration configuration,ISendMessages sendMessages)
         {
             var expose = new Expose();
             _payment = expose.CreatePayment();
@@ -30,6 +33,7 @@ namespace PaymentService.EndPoint.Controllers
             _transactions = expose.CreateTransactions();
             this.paymentService = paymentService;
             this.configuration = configuration;
+            this.sendMessages = sendMessages;
             merchendId = configuration["merchendId"];
 
         }
@@ -95,7 +99,7 @@ namespace PaymentService.EndPoint.Controllers
                 }
 
                 var client = new RestClient();
-                var request = new RestRequest("https://www.zarinpal.com/pg/rest/WebGate/PaymentVerification.json",Method.Post);
+                var request = new RestRequest("https://www.zarinpal.com/pg/rest/WebGate/PaymentVerification.json", Method.Post);
                 request.AddHeader("Content-Type", "application/json");
                 request.AddParameter("application/json", $"{{\"MerchantID\" :\"{merchendId}\",\"Authority\":\"{Authority}\",\"Amount\":\"{pay.Amount}\"}}", ParameterType.RequestBody);
                 var response = client.Execute(request);
@@ -106,7 +110,13 @@ namespace PaymentService.EndPoint.Controllers
                     paymentService.PayDone(paymentId, Authority, verification.RefID);
 
                     // ارسال پیغام برای سرویس سفارش
-
+                    PaymentIsDoneMessage paymentIsDoneMessage = new PaymentIsDoneMessage()
+                    {
+                        Creationtime = DateTime.UtcNow,
+                        MessageId = Guid.NewGuid(),
+                        OrderId = pay.OrderId,
+                    };
+                    sendMessages.SendMessage(paymentIsDoneMessage, QueueName_PaymentDone);
                     return Redirect(callbackUrlFront);
 
                 }
