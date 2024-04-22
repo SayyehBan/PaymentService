@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using PaymentService.Application.Contexts;
 using PaymentService.Application.Services;
 using PaymentService.Infrastructure.MessagingBus.ReceivedMessage.GetPaymetMessages;
@@ -6,7 +6,6 @@ using PaymentService.Persistence.Context;
 using SayyehBanTools.ConfigureService;
 using SayyehBanTools.ConnectionDB;
 using SayyehBanTools.MessagingBus.RabbitMQ.Model;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,6 +21,9 @@ builder.Services.Configure<RabbitMqConnectionSettings>(builder.Configuration
     .GetSection("RabbitMq"));
 builder.Services.AddTransient<IPaymentService, RPaymentServiceConcrete>();
 builder.Services.AddHostedService<RecievedMessagePaymentForOrder>();
+
+builder.Services.AddTransient<IPaymentService, RPaymentServiceConcrete>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

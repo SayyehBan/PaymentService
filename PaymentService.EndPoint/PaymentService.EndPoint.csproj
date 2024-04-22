@@ -19,12 +19,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.20.1" />
+    <PackageReference Include="Parbad" Version="3.9.1" />
+    <PackageReference Include="Parbad.AspNetCore" Version="1.3.0" />
+    <PackageReference Include="Parbad.Gateway.Sepehr" Version="1.4.0" />
+    <PackageReference Include="Parbad.Storage.Cache" Version="1.3.1" />
+    <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="SayyehBanTools" Version="1.3.6" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
+    <PackageReference Include="Zarinpal" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>
