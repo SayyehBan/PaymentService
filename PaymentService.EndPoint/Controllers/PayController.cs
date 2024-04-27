@@ -7,7 +7,6 @@ using PaymentService.EndPoint.Models.Dtos;
 using PaymentService.Infrastructure.MessagingBus.Messages;
 using RestSharp;
 using SayyehBanTools.MessagingBus.RabbitMQ.SendMessage;
-using System.Data;
 using ZarinPal.Class;
 
 namespace PaymentService.EndPoint.Controllers
