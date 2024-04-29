@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using PaymentService.Application.Services;
+using PaymentService.Infrastructure.Links;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using SayyehBanTools.MessagingBus.RabbitMQ.Connection;
@@ -14,17 +15,15 @@ public class RecievedMessagePaymentForOrder : BackgroundService
 {
     private readonly RabbitMqConnectionSettings _rabbitMqConnectionSettings;
     private readonly RabbitMQConnection rabbitMQConnection;
-    private readonly string _queueName;
     private readonly IPaymentService paymentService;
     public RecievedMessagePaymentForOrder(IPaymentService paymentService,RabbitMQConnection rabbitMQConnection, IOptions<RabbitMqConnectionSettings> rabbitMqConnectionSettings)
     {
         this.paymentService = paymentService;
         _rabbitMqConnectionSettings = rabbitMqConnectionSettings.Value;
-        _queueName = _rabbitMqConnectionSettings.queue;
         this.rabbitMQConnection = rabbitMQConnection;
         this.rabbitMQConnection.CreateRabbitMQConnection();
         this.rabbitMQConnection.Channel = rabbitMQConnection.Connection.CreateModel();
-        this.rabbitMQConnection.Channel.QueueDeclare(queue: _queueName, durable: true,
+        this.rabbitMQConnection.Channel.QueueDeclare(queue: LinkRabbitMQ.OrderSendToPayment, durable: true,
             exclusive: false, autoDelete: false, arguments: null);
     }
 
@@ -42,7 +41,7 @@ public class RecievedMessagePaymentForOrder : BackgroundService
             if (resultHandeleMessage)
                 rabbitMQConnection.Channel.BasicAck(ea.DeliveryTag, false);
         };
-        rabbitMQConnection.Channel.BasicConsume(queue: _queueName, false, consumer);
+        rabbitMQConnection.Channel.BasicConsume(queue: LinkRabbitMQ.OrderSendToPayment, false, consumer);
         return Task.CompletedTask;
     }
     private bool HandleMessage(Guid OrderId, int Amount)
