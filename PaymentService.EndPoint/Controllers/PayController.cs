@@ -115,7 +115,7 @@ namespace PaymentService.EndPoint.Controllers
                         MessageId = Guid.NewGuid(),
                         OrderId = pay.OrderId,
                     };
-                    sendMessages.SendMessage(paymentIsDoneMessage, QueueName_PaymentDone);
+                    sendMessages.SendMessage(paymentIsDoneMessage,null, QueueName_PaymentDone);
                     return Redirect(callbackUrlFront);
 
                 }
